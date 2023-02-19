@@ -1,5 +1,5 @@
 <?php
 
-$heading = 'Contact us';
-
-require './views/contact.view.php';
+renderView('contact.view.php', [
+    'heading' => 'Contact'
+]);

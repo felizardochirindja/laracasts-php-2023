@@ -1,5 +1,5 @@
 <?php
 
-$heading = 'Home';
-
-require './views/index.view.php';
+renderView('index.view.php', [
+    'heading' => 'Home'
+]);

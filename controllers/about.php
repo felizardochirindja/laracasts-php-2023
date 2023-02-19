@@ -1,5 +1,5 @@
 <?php
 
-$heading = 'About us';
-
-require './views/about.view.php';
+renderView('about.view.php', [
+    'heading' => 'About'
+]);
