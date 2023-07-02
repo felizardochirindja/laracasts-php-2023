@@ -1,24 +1,57 @@
 <?php
 
-$routes = require basePath('routes.php');
+namespace Core;
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-function abort(int $statusCode = 404)
+class Router
 {
-    http_response_code($statusCode);
-    require basePath("/views/$statusCode.view.php");
-    
-    die;
-}
+    protected $routes = [];
 
-function routeToController(string $uri, array $routes)
-{
-    if (array_key_exists($uri, $routes)) {
-        require basePath($routes[$uri]);
-    } else {
-       abort();
+    public function add($method, $uri, $controller)
+    {
+        $this->routes[] = compact('uri', 'controller', 'method');
+    }
+
+    public function get(string $uri, string $controller)
+    {
+        $this->add('GET', $uri, $controller);
+    }
+
+    public function post(string $uri, string $controller)
+    {
+        $this->add('POST', $uri, $controller);
+    }
+
+    public function patch(string $uri, string $controller)
+    {
+        $this->add('PATCH', $uri, $controller);
+    }
+
+    public function put(string $uri, string $controller)
+    {
+        $this->add('PUT', $uri, $controller);
+    }
+
+    public function delete(string $uri, string $controller)
+    {
+        $this->add('DELETE', $uri, $controller);
+    }
+
+    public function route(string $uri, string $method)
+    {
+        foreach ($this->routes as $route) {
+            if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+                return require basePath($route['controller']);
+            }
+        }
+
+        $this->abort();
+    }
+
+    private function abort(int $statusCode = 404)
+    {
+        http_response_code($statusCode);
+        require basePath("/views/$statusCode.view.php");
+
+        die;
     }
 }
-
-routeToController($uri, $routes);
