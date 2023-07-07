@@ -27,24 +27,13 @@ class Database
         return $this;
     }
 
-    public function find()
+    public function find(): array | false
     {
         return $this->statement->fetch();
     }
 
-    public function findAll()
+    public function findAll(): array
     {
         return $this->statement->fetchAll();
-    }
-
-    public function findOrFail()
-    {
-        $result = $this->statement->fetch();
-
-        if ($result === false) {
-            abort();
-        }
-
-        return $result;
     }
 }

@@ -33,7 +33,7 @@ function authorize(bool $condition, $satus = Response::FORBIDDEN)
 
 function basePath(string $path): string
 {
-    $config = require __DIR__ . '/../config.php'; 
+    $config = require __DIR__ . '/../config.php';
     return $config['basePath'] . $path;
 }
 
