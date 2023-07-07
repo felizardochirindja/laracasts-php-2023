@@ -2,7 +2,7 @@
 
 use Core\Response;
 
-function dumpDie($value)
+function dumpDie($value): never
 {
     echo '<pre>';
     var_dump($value);
@@ -33,10 +33,11 @@ function authorize(bool $condition, $satus = Response::FORBIDDEN)
 
 function basePath(string $path): string
 {
-    return BASE_PATH . $path;
+    $config = require __DIR__ . '/../config.php'; 
+    return $config['basePath'] . $path;
 }
 
-function renderView(string $path, array $attributes = [])
+function renderView(string $path, array $attributes = []): void
 {
     extract($attributes);
     require basePath('views/' . $path);

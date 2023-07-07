@@ -7,8 +7,8 @@ use PDOStatement;
 
 class Database
 {
-    public PDO $connection;
-    public PDOStatement $statement;
+    private PDO $connection;
+    private PDOStatement $statement;
 
     public function __construct(array $config, string $username = 'root', $password = '')
     {

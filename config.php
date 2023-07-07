@@ -6,5 +6,6 @@ return [
         'port' => 3306,
         'dbname' => 'laracast',
         'charset' => 'utf8mb4'
-    ]
+    ],
+    'basePath' => __DIR__ . '/',
 ];
