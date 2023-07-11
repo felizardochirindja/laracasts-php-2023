@@ -5,7 +5,7 @@ namespace Core;
 use PDO;
 use PDOStatement;
 
-class Database
+final class Database
 {
     private PDO $connection;
     private PDOStatement $statement;

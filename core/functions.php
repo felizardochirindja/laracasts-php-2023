@@ -24,7 +24,7 @@ function abort(int $statusCode = 404)
     die;
 }
 
-function authorize(bool $condition, $satus = Response::FORBIDDEN): void
+function authorize(bool $condition, int $satus = Response::FORBIDDEN): void
 {
     if (!$condition) {
         abort($satus);

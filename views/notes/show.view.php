@@ -10,9 +10,9 @@
 
         <main>
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                <p class="mb-6"><a href="./notes" class="text-blue-500 underline">go back...</a></p>
+                <p class="mb-6"><a href="/notes" class="text-blue-500 underline">notes</a></p>
                 <p><?= htmlspecialchars($note['body']) ?></p>
-    
+
                 <button><a href="note/edit?id=<?php echo $note['id'] ?>">edit</a></button>
 
                 <form class="mt-6" method="post" action="/note">

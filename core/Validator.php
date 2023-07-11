@@ -2,7 +2,7 @@
 
 namespace Core;
 
-class Validator
+final class Validator
 {
     public static function string(string $value, $min = 1, $max = INF): bool
     {
