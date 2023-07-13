@@ -2,8 +2,8 @@
 
 namespace Core;
 
-final class Response
+enum Response: int
 {
-    const NOT_FOUND = 404;
-    const FORBIDDEN = 403;
+    case NotFound = 404;
+    case Forbiden = 403;
 }
