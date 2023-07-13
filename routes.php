@@ -14,3 +14,5 @@ $router->put('/note/update', 'controllers/notes/update.php');
 $router->get('/note', 'controllers/notes/show.php');
 $router->delete('/note', 'controllers/notes/destroy.php');
 $router->post('/notes', 'controllers/notes/store.php');
+
+$router->get('/register', 'controllers/registration/create.php');

@@ -36,25 +36,19 @@ final class Router
         $this->add('DELETE', $uri, $controller);
     }
 
-    public function route(): string
+    public function route(): bool
     {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-                return require basePath($route['controller']);
+                require basePath($route['controller']);
+
+                return true;
             }
         }
 
-        $this->abort();
-    }
-
-    private function abort(int $statusCode = 404): never
-    {
-        http_response_code($statusCode);
-        require basePath("/views/$statusCode.view.php");
-
-        die;
+        return false;
     }
 }
