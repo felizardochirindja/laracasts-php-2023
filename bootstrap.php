@@ -19,6 +19,7 @@ App::setContainer($container);
 
 $router = new Router();
 $routes = require basePath('routes.php');
+$routes($router);
 
 if (!$router->route()) {
     abort();
