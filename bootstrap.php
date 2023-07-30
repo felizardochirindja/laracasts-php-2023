@@ -4,10 +4,10 @@ use Core\App;
 use Core\Container;
 use Core\Router;
 
-spl_autoload_register(function (string $class) {
-    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+spl_autoload_register(function (string $className): void {
+    $className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
 
-    require basePath($class . '.php');
+    require basePath($className . '.php');
 });
 
 $container = new Container();
