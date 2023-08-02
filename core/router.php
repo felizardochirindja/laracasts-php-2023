@@ -2,38 +2,47 @@
 
 namespace Core;
 
+use Core\Middleware\Middleware;
+
 final class Router
 {
     private array $routes = [];
 
-    private function add($method, $uri, $controller): void
+    public function get(string $uri, string $controller): self
     {
-        $this->routes[] = compact('uri', 'controller', 'method');
+        return $this->add('GET', $uri, $controller);
     }
 
-    public function get(string $uri, string $controller): void
+    public function post(string $uri, string $controller): self
     {
-        $this->add('GET', $uri, $controller);
+        return $this->add('POST', $uri, $controller);
     }
 
-    public function post(string $uri, string $controller): void
+    public function patch(string $uri, string $controller): self
     {
-        $this->add('POST', $uri, $controller);
+        return $this->add('PATCH', $uri, $controller);
     }
 
-    public function patch(string $uri, string $controller): void
+    public function put(string $uri, string $controller): self
     {
-        $this->add('PATCH', $uri, $controller);
+        return $this->add('PUT', $uri, $controller);
     }
 
-    public function put(string $uri, string $controller): void
+    public function delete(string $uri, string $controller): self
     {
-        $this->add('PUT', $uri, $controller);
+        return $this->add('DELETE', $uri, $controller);
     }
 
-    public function delete(string $uri, string $controller): void
+    private function add($method, $uri, $controller): self
     {
-        $this->add('DELETE', $uri, $controller);
+        $middleware = null;
+        $this->routes[] = compact('uri', 'controller', 'method', 'middleware');
+        return $this;
+    }
+
+    public function only($key): void
+    {
+        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
     }
 
     public function route(): bool
@@ -43,6 +52,11 @@ final class Router
 
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+
+                if ($route['middleware']) {
+                    Middleware::resolve($route['middleware']);
+                }
+
                 require basePath($route['controller']);
 
                 return true;

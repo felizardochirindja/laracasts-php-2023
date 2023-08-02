@@ -8,6 +8,10 @@
                         <a href="/about" class="<?= requestUrlIs('/about') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?> px-3 py-2 rounded-md text-sm font-medium"><?= requestUrlIs("/about") ? "ABOUT" : "About" ?></a>
                         <a href="/notes" class="<?= requestUrlIs('/notes') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?> px-3 py-2 rounded-md text-sm font-medium"><?= requestUrlIs("/notes") ? "NOTES" : "Notes" ?></a>
                         <a href="/contact" class="<?= requestUrlIs('/contact') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?> px-3 py-2 rounded-md text-sm font-medium"><?= requestUrlIs("/contact") ? "CONTACT" : "Contact" ?></a>
+                        
+                        <?php if (!array_key_exists('email', $_SESSION)): ?>
+                            <a href="/register" class="<?= requestUrlIs('/register') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?> px-3 py-2 rounded-md text-sm font-medium"><?= requestUrlIs("/register") ? "REGISTER" : "Register" ?></a>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
