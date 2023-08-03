@@ -2,6 +2,6 @@
 
 $heading = $_SESSION['email'] ?? false ? "Hello " . $_SESSION['email'] : 'Welcome';
 
-renderView('index.view.php', [
+renderView('pages/views/home.view', [
     'heading' => $heading,
 ]);

@@ -8,7 +8,7 @@ final class Container
 {
     private $bindings = [];
 
-    public function bind(string $key, $resolver)
+    public function bind(string $key, callable $resolver)
     {
         $this->bindings[$key] = $resolver;
     }
@@ -20,7 +20,6 @@ final class Container
         }
 
         $resolver = $this->bindings[$key];
-
         return call_user_func($resolver);
     }
 }

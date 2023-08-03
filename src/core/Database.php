@@ -27,7 +27,7 @@ final class Database
         return $this;
     }
 
-    public function find(): array | false
+    public function find(): array|false
     {
         return $this->statement->fetch();
     }

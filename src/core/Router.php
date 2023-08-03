@@ -18,11 +18,6 @@ final class Router
         return $this->add('POST', $uri, $controller);
     }
 
-    public function patch(string $uri, string $controller): self
-    {
-        return $this->add('PATCH', $uri, $controller);
-    }
-
     public function put(string $uri, string $controller): self
     {
         return $this->add('PUT', $uri, $controller);
@@ -40,25 +35,23 @@ final class Router
         return $this;
     }
 
-    public function only($key): void
+    public function only(string $key): void
     {
         $this->routes[array_key_last($this->routes)]['middleware'] = $key;
     }
 
-    public function route(): bool
+    public function navigate(): bool
     {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-
                 if ($route['middleware']) {
                     Middleware::resolve($route['middleware']);
                 }
 
-                require basePath($route['controller']);
-
+                require fileFromRoot('modules/' . $route['controller']);
                 return true;
             }
         }
