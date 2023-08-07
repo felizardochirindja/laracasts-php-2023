@@ -1,5 +1,6 @@
 <?php
 
+use Core\App;
 use Core\Container;
 use Core\Router;
 
@@ -16,8 +17,16 @@ $settings($container);
 $dependecies = require fileFromRoot('config/di', '/');
 $dependecies($container);
 
+App::setContainer($container);
+
 $router = new Router();
+
+// page routes
 $routes = require fileFromRoot('modules/pages/routes');
+$routes($router);
+
+// note notes
+$routes = require fileFromRoot('modules/note/noteRoutes');
 $routes($router);
 
 if (!$router->navigate()) {

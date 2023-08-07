@@ -31,6 +31,6 @@ function fileFromRoot(string $path, $root = 'src'): string
 function renderView(string $path, array $attributes = []): never
 {
     extract($attributes);
-    require fileFromRoot('modules/' . $path);
+    require fileFromRoot('modules/' . $path . '.view');
     die;
 }

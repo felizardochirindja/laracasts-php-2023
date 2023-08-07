@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-gray-100">
 
-<?php require basePath('views/partials/head.php') ?>
+<?php require fileFromRoot('modules/shared/views/partials/head') ?>
 
 <body class="h-full">
     <div class="min-h-full">
-        <?php require basePath('views/partials/nav.php') ?>
-        <?php require basePath('views/partials/banner.php') ?>
+        <?php require fileFromRoot('modules/shared/views/partials/nav') ?>
+        <?php require fileFromRoot('modules/shared/views/partials/banner') ?>
 
         <main>
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                 <div>
                     <div class="md:grid md:grid-cols-3 md:gap-6">
                         <div class="mt-5 md:col-span-2 md:mt-0">
-                            <form action="/note/update?id=<?= $note['id'] ?>" method="POST">
+                            <form action="/note?id=<?= $note['id'] ?>" method="POST">
                                 <input type="hidden" name="_method" value="PUT">
 
                                 <div class="shadow sm:overflow-hidden sm:rounded-md">
@@ -50,7 +50,7 @@
             </div>
         </main>
 
-        <?php require basePath('views/partials/footer.php') ?>
+        <?php require fileFromRoot('modules/shared/views/partials/footer') ?>
     </div>
 </body>
 

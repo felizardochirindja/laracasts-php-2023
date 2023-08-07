@@ -4,7 +4,7 @@ use Core\App;
 use Core\Database;
 use Core\Validator;
 
-$db = App::getContainer()->resolve(Database::class);
+$db = App::resolveDependecy(Database::class);
 
 $errors = [];
 
@@ -13,7 +13,7 @@ if (!Validator::string($_POST['body'], 1, 5)) {
 }
 
 if (!empty($errors)) {
-    renderView('notes/create.view.php', [
+    renderView('note/views/createNote', [
         'heading' => 'Create a note',
         'errors' => $errors,
     ]);

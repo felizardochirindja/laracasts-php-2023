@@ -1,6 +1,6 @@
 <?php
 
-renderView('notes/create.view.php', [
+renderView('note/views/createNote', [
     'heading' => 'Create a note',
     'errors' => [],
 ]);

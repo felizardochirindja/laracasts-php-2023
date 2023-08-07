@@ -2,8 +2,9 @@
 
 use Core\App;
 use Core\Database;
+use Core\HTTPResponse;
 
-$db = App::getContainer()->resolve(Database::class);
+$db = App::resolveDependecy(Database::class);
 
 $currentUserId = 6;
 
@@ -12,10 +13,12 @@ $note = $db->query('select * from notes where id = :id', [
 ])->find();
 
 if (!$note) {
-    abort();
+    breakPage();
 }
 
-authorize($note['user_id'] == $currentUserId);
+if ($note['user_id'] !== $currentUserId) {
+    breakPage(HTTPResponse::Forbiden);
+}
 
 $db->query('delete from notes where id = :id', [
     ':id' => $_POST['id']
