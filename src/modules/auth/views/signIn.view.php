@@ -9,15 +9,15 @@
 
         <main>
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                <p>sign in</p>
-                <p><a href="/sign-in">sign in</a></p>
+                <p>Sign in</p>
+                <p><a href="/sign-up">sign up</a></p>
 
-                <form action="/sign-up" method="post">
+                <form action="/sign-in" method="post">
 
                     <div>
                         <label for="">email</label>
                         <input type="text" name="email" id="">
-                        <p class="text-red-500 text-xs mt-2"><?= $errors['email'] ?? '' ?></p>
+                        <p class="text-red-500 text-xs mt-2"><?= $errors['email'] ?? $errors['userExists'] ?? '' ?></p>
                     </div>
 
                     <div>
@@ -26,7 +26,7 @@
                         <p class="text-red-500 text-xs mt-2"><?= $errors['password'] ?? '' ?></p>
                     </div>
 
-                    <button type="submit">sign up</button>
+                    <button type="submit">sign in</button>
                 </form>
             </div>
         </main>

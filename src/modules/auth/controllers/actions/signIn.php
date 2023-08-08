@@ -18,7 +18,7 @@ if (!Validator::string($password, 7, 255)) {
 }
 
 if (!empty($errors)) {
-    renderView('auth/views/signUp', [
+    renderView('auth/views/signIn', [
         'errors' => $errors,
     ]);
 }
@@ -26,22 +26,17 @@ if (!empty($errors)) {
 /** @var Database $db */
 $db = App::resolveDependecy(Database::class);
 
-$user = $db->query('select * from users where email = :email', [
-    'email' => $email,
+$user = $db->query('select * from users where email = :email and password = :password', [
+    'email' => $email, 'password' => $password
 ])->find();
 
-if ($user) {
-    $errors['userExists'] = 'user already exists';
+if (!$user) {
+    $errors['email'] = 'user does not exists';
 
-    renderView('auth/views/signUp', [
+    renderView('auth/views/signIn', [
         'errors' => $errors,
     ]);
 }
-
-$db->query('INSERT INTO users(email, password) VALUES(:email, :password)', [
-    'email' => $email,
-    'password' => $password,
-]);
 
 $_SESSION['email'] = $email;
 

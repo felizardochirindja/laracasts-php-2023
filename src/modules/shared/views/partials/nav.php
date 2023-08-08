@@ -14,11 +14,13 @@
                         <a href="/contact" class="<?= requestUrlIs('/contact') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?> px-3 py-2 rounded-md text-sm font-medium"><?= requestUrlIs("/contact") ? "CONTACT" : "Contact" ?></a>
                         
                         <!-- auth buttons -->
-                        <?php if (!($_SESSION['email'] ?? false) ): ?>
-                            <a href="/sign-up" class="<?= requestUrlIs('/sign-up') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?> px-3 py-2 rounded-md text-sm font-medium"><?= requestUrlIs("/sign-up") ? "SIGN-UP" : "Sign-up" ?></a>
-                        <?php else: ?>
-                            <form action="/logout" method="post">
-                                <input type="submit" value="logout" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        <?php if (!($_SESSION['email'] ?? false) && !requestUrlIs('/sign-up') && !requestUrlIs('/sign-in')): ?>
+                            <a href="/sign-in" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                        <?php endif; ?>
+                        
+                        <?php if ($_SESSION['email'] ?? false): ?>
+                            <form action="/sign-out" method="post">
+                                <input type="submit" value="sign out" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                             </form>
                         <?php endif; ?>
                     </div>
