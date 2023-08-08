@@ -10,7 +10,7 @@
                         <a href="/contact" class="<?= requestUrlIs('/contact') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?> px-3 py-2 rounded-md text-sm font-medium"><?= requestUrlIs("/contact") ? "CONTACT" : "Contact" ?></a>
                         
                         <?php if (!array_key_exists('email', $_SESSION)): ?>
-                            <a href="/register" class="<?= requestUrlIs('/register') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?> px-3 py-2 rounded-md text-sm font-medium"><?= requestUrlIs("/register") ? "REGISTER" : "Register" ?></a>
+                            <a href="/sign-up" class="<?= requestUrlIs('/sign-up') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?> px-3 py-2 rounded-md text-sm font-medium"><?= requestUrlIs("/sign-up") ? "SIGN-UP" : "Sign-up" ?></a>
                         <?php endif ?>
                     </div>
                 </div>

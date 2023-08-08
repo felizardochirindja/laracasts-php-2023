@@ -18,13 +18,13 @@ if (!Validator::string($password, 7, 255)) {
 }
 
 if (!empty($errors)) {
-    renderView('registration/create.view.php', [
+    renderView('auth/views/signUp', [
         'errors' => $errors,
     ]);
 }
 
 /** @var Database $db */
-$db = App::getContainer()->resolve(Database::class);
+$db = App::resolveDependecy(Database::class);
 
 $user = $db->query('select * from users where email = :email', [
     'email' => $email,
@@ -33,7 +33,7 @@ $user = $db->query('select * from users where email = :email', [
 if ($user) {
     $errors['userExists'] = 'user already exists';
 
-    renderView('registration/create.view.php', [
+    renderView('auth/views/signUp', [
         'errors' => $errors,
     ]);
 }

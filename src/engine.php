@@ -25,8 +25,12 @@ $router = new Router();
 $routes = require fileFromRoot('modules/pages/routes');
 $routes($router);
 
-// note notes
+// note routes
 $routes = require fileFromRoot('modules/note/noteRoutes');
+$routes($router);
+
+// auth routes
+$routes = require fileFromRoot('modules/auth/authRoutes');
 $routes($router);
 
 if (!$router->navigate()) {

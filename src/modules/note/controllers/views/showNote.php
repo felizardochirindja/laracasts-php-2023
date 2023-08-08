@@ -8,6 +8,10 @@ $db = App::resolveDependecy(Database::class);
 
 $currentUserId = 6;
 
+if (!isset($_GET['id'])) {
+    breakPage();
+}
+
 $note = $db->query('select * from notes where id = :id', [
     ':id' => $_GET['id'],
 ])->find();
