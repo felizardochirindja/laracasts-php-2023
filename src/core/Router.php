@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Core\Middleware\Middleware;
+use Modules\Shared\Middlewares\Middleware;
 
 final class Router
 {

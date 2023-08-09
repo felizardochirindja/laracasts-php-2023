@@ -6,8 +6,6 @@ use Core\HTTPResponse;
 
 $db = App::resolveDependecy(Database::class);
 
-$currentUserId = 6;
-
 $note = $db->query('select * from notes where id = :id', [
     ':id' => $_POST['id'],
 ])->find();
@@ -15,6 +13,8 @@ $note = $db->query('select * from notes where id = :id', [
 if (!$note) {
     breakPage();
 }
+
+$currentUserId = $_SESSION['user']['id'] ?? false;
 
 if ($note['user_id'] !== $currentUserId) {
     breakPage(HTTPResponse::Forbiden);

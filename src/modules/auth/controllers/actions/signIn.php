@@ -3,6 +3,7 @@
 use Core\App;
 use Core\Database;
 use Core\Validator;
+use Modules\Auth\AuthService;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -26,11 +27,9 @@ if (!empty($errors)) {
 /** @var Database $db */
 $db = App::resolveDependecy(Database::class);
 
-$user = $db->query('select * from users where email = :email and password = :password', [
-    'email' => $email, 'password' => $password
-])->find();
+$result = (new AuthService($db))->signIn($email, $password);
 
-if (!$user) {
+if (!$result) {
     $errors['email'] = 'user does not exists';
 
     renderView('auth/views/signIn', [
@@ -38,6 +37,5 @@ if (!$user) {
     ]);
 }
 
-$_SESSION['email'] = $email;
-
 header('location: /');
+die;

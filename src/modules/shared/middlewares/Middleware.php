@@ -1,13 +1,14 @@
 <?php
 
-namespace Core\Middleware;
+namespace Modules\Shared\Middlewares;
 
 use Exception;
 
 class Middleware
 {
     const MAP = [
-        'auth' => Auth::class
+        'auth' => Auth::class,
+        'guest' => Guest::class,
     ];
 
     public static function resolve($key)

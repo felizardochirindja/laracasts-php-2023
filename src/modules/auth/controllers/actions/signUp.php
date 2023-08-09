@@ -41,8 +41,14 @@ if ($user) {
 $db->query('INSERT INTO users(email, password) VALUES(:email, :password)', [
     'email' => $email,
     'password' => $password,
-]);
+])->find();
 
-$_SESSION['email'] = $email;
+$user = $db->query('select * from users where email = :email', [
+    'email' => $email,
+])->find();
+
+$_SESSION['user']['email'] = $email;
+$_SESSION['user']['id'] = $user['id'];
 
 header('location: /');
+die;

@@ -1,5 +1,6 @@
 <?php
 
-unset($_SESSION['email']);
+unset($_SESSION['user']);
 
 header('location: /');
+die;

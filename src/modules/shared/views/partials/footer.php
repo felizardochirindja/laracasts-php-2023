@@ -7,7 +7,7 @@
             <a href="/about" class="mr-4 hover:underline md:mr-6">About</a>
         </li>
 
-        <?php if ($_SESSION['email'] ?? false): ?>
+        <?php if ($_SESSION['user'] ?? false): ?>
             <li>
                 <a href="/notes" class="mr-4 hover:underline md:mr-6">Notes</a>
             </li>
