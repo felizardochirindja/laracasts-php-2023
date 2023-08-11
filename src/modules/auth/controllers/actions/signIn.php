@@ -1,7 +1,6 @@
 <?php
 
 use Core\App;
-use Core\Database;
 use Core\Validator;
 use Modules\Auth\AuthService;
 
@@ -24,10 +23,10 @@ if (!empty($errors)) {
     ]);
 }
 
-/** @var Database $db */
-$db = App::resolveDependecy(Database::class);
+/** @var AuthService $authService */
+$authService = App::resolveDependecy(AuthService::class);
 
-$result = (new AuthService($db))->signIn($email, $password);
+$result = $authService->signIn($email, $password);
 
 if (!$result) {
     $errors['email'] = 'user does not exists';

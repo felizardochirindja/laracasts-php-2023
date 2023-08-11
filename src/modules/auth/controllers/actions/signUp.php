@@ -1,8 +1,8 @@
 <?php
 
 use Core\App;
-use Core\Database;
 use Core\Validator;
+use Modules\Auth\AuthService;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -23,32 +23,18 @@ if (!empty($errors)) {
     ]);
 }
 
-/** @var Database $db */
-$db = App::resolveDependecy(Database::class);
+/** @var AuthService $authService */
+$authService = App::resolveDependecy(AuthService::class);
 
-$user = $db->query('select * from users where email = :email', [
-    'email' => $email,
-])->find();
+$userExists = !$authService->signUp($email, $password);
 
-if ($user) {
+if ($userExists) {
     $errors['email'] = 'user already exists';
 
     renderView('auth/views/signUp', [
         'errors' => $errors,
     ]);
 }
-
-$db->query('INSERT INTO users(email, password) VALUES(:email, :password)', [
-    'email' => $email,
-    'password' => $password,
-])->find();
-
-$user = $db->query('select * from users where email = :email', [
-    'email' => $email,
-])->find();
-
-$_SESSION['user']['email'] = $email;
-$_SESSION['user']['id'] = $user['id'];
 
 header('location: /');
 die;
