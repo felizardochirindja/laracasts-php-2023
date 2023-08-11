@@ -51,4 +51,8 @@ final class AuthService
         return true;
     }
 
+    public function signOut(): void
+    {
+        unset($_SESSION['user']);
+    }
 }
