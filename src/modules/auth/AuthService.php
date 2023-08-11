@@ -25,4 +25,30 @@ final class AuthService
 
         return true;
     }
+
+    public function signUp(string $email, string $password): bool
+    {
+        $user = $this->db->query('select * from users where email = :email', [
+            'email' => $email,
+        ])->find();
+        
+        if ($user) {
+            return false;
+        }
+        
+        $this->db->query('INSERT INTO users(email, password) VALUES(:email, :password)', [
+            'email' => $email,
+            'password' => $password,
+        ])->find();
+        
+        $user = $this->db->query('select * from users where email = :email', [
+            'email' => $email,
+        ])->find();
+        
+        $_SESSION['user']['email'] = $email;
+        $_SESSION['user']['id'] = $user['id'];
+
+        return true;
+    }
+
 }
