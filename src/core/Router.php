@@ -51,7 +51,7 @@ final class Router
                     Middleware::resolve($route['middleware']);
                 }
 
-                require fileFromRoot('modules/' . $route['controller']);
+                require fileFromRoot('modules/' . $route['controller'] . '.controller');
                 return true;
             }
         }
