@@ -1,12 +1,6 @@
 <?php
 
-use Core\App;
-use Modules\Auth\AuthService;
-
-/** @var AuthService $authService */
-$authService = App::resolveDependecy(AuthService::class);
-
-$authService->signOut();
+unset($_SESSION['user']);
 
 header('location: /');
 die;
