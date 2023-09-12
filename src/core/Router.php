@@ -1,61 +1,13 @@
 <?php
 
-namespace Core;
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
-use Modules\Shared\Middlewares\Middleware;
-
-final class Router
-{
-    private array $routes = [];
-
-    public function get(string $uri, string $controller): self
-    {
-        return $this->add('GET', $uri, $controller);
-    }
-
-    public function post(string $uri, string $controller): self
-    {
-        return $this->add('POST', $uri, $controller);
-    }
-
-    public function put(string $uri, string $controller): self
-    {
-        return $this->add('PUT', $uri, $controller);
-    }
-
-    public function delete(string $uri, string $controller): self
-    {
-        return $this->add('DELETE', $uri, $controller);
-    }
-
-    private function add($method, $uri, $controller): self
-    {
-        $middleware = null;
-        $this->routes[] = compact('uri', 'controller', 'method', 'middleware');
-        return $this;
-    }
-
-    public function only(string $key): void
-    {
-        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
-    }
-
-    public function navigate(): bool
-    {
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
-
-        foreach ($this->routes as $route) {
-            if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-                if ($route['middleware']) {
-                    Middleware::resolve($route['middleware']);
-                }
-
-                require fileFromRoot('modules/' . $route['controller'] . '.controller');
-                return true;
-            }
-        }
-
-        return false;
+foreach ($routes as $route) {
+    if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+        require fileFromRoot('modules/' . $route['controller'] . '.controller');
+        return true;
     }
 }
+
+return false;
