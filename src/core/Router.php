@@ -3,7 +3,13 @@
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
-foreach ($routes as $route) {
+$flattenedRoutes = [];
+
+foreach ($routes as $routeArray) {
+    $flattenedRoutes = array_merge($flattenedRoutes, $routeArray);
+}
+
+foreach ($flattenedRoutes as $route) {
     if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
         require fileFromRoot('modules/' . $route['controller'] . '.controller');
         return true;
